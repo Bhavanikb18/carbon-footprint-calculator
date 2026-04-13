@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carbon Calculator</title>
+
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/calculator.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+  <h1>🌱 Carbon Footprint Calculator</h1>
+  <p>Estimate your daily CO₂ emissions</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Inputs</h2>
+
+    <h3>🚗 Travel (km/day)</h3>
+    <label>Bike (km):</label><input type="number" id="bike" placeholder="">
+    <label>Car (km):</label><input type="number" id="car" placeholder="">
+    <label>Bus (km):</label><input type="number" id="bus" placeholder="">
+    <label>Train (km):</label><input type="number" id="train" placeholder="">
+
+    <hr>
+
+    <h3>⚡ Electricity</h3>
+    <label>Mode</label>
+    <select id="elec_mode" onchange="toggleElectricityMode()">
+      <option value="units">I know kWh/day</option>
+      <option value="appliances">By appliances</option>
+    </select>
+
+    <div id="units_section">
+      <label>Units (kWh/day)</label>
+      <input type="number" id="units" placeholder="">
+    </div>
+
+    <div id="appliance_section" style="display:none;">
+      <label>Lights</label><input type="number" id="lights" placeholder="">
+      <label>Do you use LED bulbs?</label>
+      <select id="led_bulbs">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+      </select>
+      <label>Fans</label><input type="number" id="fans" placeholder="">
+      <label>Fridge</label><input type="number" id="fridge" placeholder="">
+      <label>AC</label><input type="number" id="ac" placeholder="">
+      <label>Washing Machine</label><input type="number" id="washing_machine" placeholder="">
+      <label>TV</label><input type="number" id="tv" placeholder="">
+    </div>
+
+    <hr>
+
+    <h3>🍽 Food</h3>
+    <select id="food">
+      <option value="none">None</option>
+      <option value="veg">Vegetarian</option>
+      <option value="1-2">1–2 non-veg meals/day</option>
+      <option value="2-3">2–3 non-veg meals/day</option>
+      <option value="nonveg">Non-vegetarian</option>
+    </select>
+
+    <hr>
+
+    <h3>🗑 Waste</h3>
+    <select id="waste_category">
+      <option value="none">None</option>
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+
+    <select id="waste_habit">
+      <option value="none">None</option>
+      <option value="recycle">Recycle</option>
+      <option value="compost">Compost</option>
+    </select>
+
+    <button onclick="calculate()">Calculate & Save</button>
+  </section>
+
+  <section class="card">
+    <h2>Results</h2>
+    <div id="result">Enter values and click Calculate.</div>
+    <canvas id="chart" width="400" height="200"></canvas>
+    <div id="recommendations" style="margin-top:15px;"></div>
+  </section>
+</main>
+
+<div class="container">
+  <a href="/dashboard" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+
+<footer>
+  <p>Measure today, sustain tomorrow.</p>
+</footer>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
