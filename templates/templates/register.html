@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Carbon App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+</head>
+
+<body>
+
+    <!-- MAIN HEADING -->
+    <h1 class="main-title">Carbon Footprint Calculator</h1>
+
+    <div class="auth-container">
+        <div class="card">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join and start tracking your footprint</p>
+
+            {% if msg %}
+            <div class="error">{{ msg }}</div>
+            {% endif %}
+
+            <form action="/register" method="POST">
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" placeholder="Enter full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <button class="btn green" type="submit">Register</button>
+            </form>
+
+            <p class="switch">Already have an account?  
+                <a href="/login">Login</a>
+            </p>
+        </div>
+    </div>
+
+</body>
+
+</html>
