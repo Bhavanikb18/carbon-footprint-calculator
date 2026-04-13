@@ -1,0 +1,96 @@
+/* static/script.js */
+
+function toggleElectricityMode() {
+  let mode = document.getElementById("elec_mode").value;
+  document.getElementById("units_section").style.display =
+    mode === "units" ? "block" : "none";
+  document.getElementById("appliance_section").style.display =
+    mode === "appliances" ? "block" : "none";
+}
+
+function calculate() {
+  const payload = {
+    bike: document.getElementById("bike").value,
+    car: document.getElementById("car").value,
+    bus: document.getElementById("bus").value,
+    train: document.getElementById("train").value,
+
+    elec_mode: document.getElementById("elec_mode").value,
+    units: document.getElementById("units").value,
+    lights: document.getElementById("lights").value,
+    fans: document.getElementById("fans").value,
+    fridge: document.getElementById("fridge").value,
+    ac: document.getElementById("ac").value,
+    washing_machine: document.getElementById("washing_machine").value,
+    tv: document.getElementById("tv").value,
+    led_bulbs: document.getElementById("led_bulbs").value, // ✅ Added LED selection
+
+    food: document.getElementById("food").value,
+    waste_category: document.getElementById("waste_category").value,
+    waste_habit: document.getElementById("waste_habit").value
+  };
+
+  // Check: at least one meaningful input
+  const allEmpty = Object.keys(payload).every((key) => {
+    const val = payload[key];
+    if (key === "led_bulbs") return false; // ignore LED for empty check
+    return val === "" || val === "none";
+  });
+
+  if (allEmpty) {
+    document.getElementById("result").innerHTML =
+      "<span style='color:red;'>⚠ Please enter at least one input to calculate your carbon footprint.</span>";
+    document.getElementById("recommendations").innerHTML = "";
+    return;
+  }
+
+  fetch("/calculate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+    .then((r) => r.json())
+    .then((data) => {
+      if (data.error) {
+        document.getElementById("result").innerText = data.error;
+        return;
+      }
+
+      document.getElementById(
+        "result"
+      ).innerHTML = `Your daily carbon footprint is <b>${data.total} kg CO₂</b>.`;
+
+      // --- SHOW NICE HEADING + RECOMMENDATIONS ---
+      document.getElementById("recommendations").innerHTML =
+        `<h3>🌿 Recommendations</h3>` +
+        data.recommendations.replace(/\n/g, "<br>");
+
+      // --- Pie Chart ---
+      const b = data.breakdown;
+      const ctx = document.getElementById("chart").getContext("2d");
+
+      if (window.myChart) window.myChart.destroy();
+
+      window.myChart = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Travel", "Electricity", "Food", "Waste"],
+          datasets: [
+            {
+              data: [b.travel, b.electricity, b.food, b.waste],
+              backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"]
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+    })
+    .catch((e) => {
+      document.getElementById("result").innerText =
+        "Server error. Try again.";
+      console.error(e);
+    });
+}
