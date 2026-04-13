@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: #1a8f3c;
+            color: white;
+            padding: 15px 25px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #1a8f3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        .btn-secondary {
+            background: #0a66c2;
+        }
+
+        .logout-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <strong>Carbon App</strong>
+    <div>
+        Hi, <strong>{{ username }}</strong> |
+        <a href="/logout" class="logout-btn" style="color:white;">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="title">Welcome {{ username }}!</div>
+
+    <div class="card-grid">
+
+        <!-- LAST RESULT CARD -->
+        <div class="card">
+            <h3>Your Latest Carbon Footprint</h3>
+
+            {% if last_result %}
+                <p><strong>Total CO₂:</strong> {{ last_result.total_kg }} kg</p>
+                <p><strong>Recommendations:</strong><br>{{ last_result.recommendations }}</p>
+                <a href="/history" class="btn">View Full History</a>
+            {% else %}
+                <p>No calculations yet.</p>
+                <a href="/calculator" class="btn">Start Calculation</a>
+            {% endif %}
+        </div>
+
+        <!-- CALCULATOR CARD -->
+        <div class="card">
+            <h3>Calculator</h3>
+            <p>Calculate your daily carbon footprint using the detailed tool.</p>
+            <a class="btn" href="/calculator">Open Calculator</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
