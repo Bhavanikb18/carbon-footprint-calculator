@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History - Carbon App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #99e5a3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: #1a8f3c;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .record {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            background: #1a8f3c;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 6px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <strong>Carbon App</strong>
+    <div>
+        Hi, <b>{{ username }}</b> |
+        <a href="/logout" style="color: white;">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="title">Your Calculation History</div>
+
+    {% if records %}
+        {% for r in records %}
+        <div class="record">
+            <p><b>Total CO₂:</b> {{ r.total_kg }} kg</p>
+            <p><b>Date:</b> {{ r.created_at }}</p>
+
+            <p><b>Breakdown:</b></p>
+            <pre>{{ r.breakdown_json }}</pre>
+
+            <p><b>Recommendations:</b></p>
+            <pre>{{ r.recommendations }}</pre>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No history found.</p>
+    {% endif %}
+
+    <br>
+    <a href="/dashboard" class="btn">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>
