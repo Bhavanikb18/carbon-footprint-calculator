@@ -1,0 +1,68 @@
+/* static/style.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 12px;
+  background: #f5f5f5;
+  color: #222;
+}
+
+header {
+  background: linear-gradient(90deg,#2e7d32,#1b5e20);
+  color: white;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.container {
+  width: 380px;
+  margin: 60px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px;
+  width: 100%;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover { background: #1b5e20; }
+
+.msg { color: red; text-align:center; }
+
+.navbar {
+  display:flex;
+  justify-content:space-between;
+  padding:10px 14px;
+  background:#ffffff;
+  border-radius:8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  margin-bottom:14px;
+}
+
+.brand { font-weight:700; color:#2e7d32; }
+.nav-right { display:flex; gap:12px; align-items:center; }
+.nav-right a { color:#2e7d32; text-decoration:none; font-weight:600; }
+
+.dashboard-container { padding: 10px; display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+.card { padding: 16px; background: white; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+
+.btn { display:inline-block; padding:10px 14px; background:#208f32; color:white; text-decoration:none; border-radius:8px; }
